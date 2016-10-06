@@ -19,9 +19,11 @@ int main()
     }
     sort(v.begin(), v.end());
     int sum = 0;
+    int lsum = 0;
     for(int i = 0; i < N; i++) {
         sum += v[i];
+        lsum += sum;
     }
-    cout << sum << endl;
+    cout << lsum << endl;
     return 0;
 }
