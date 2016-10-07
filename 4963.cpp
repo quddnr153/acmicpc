@@ -29,6 +29,8 @@ int main()
         cin >> w >> h;
         if(w == 0 && h == 0)
             break;
+        for(int i = 0; i < 51; i++)
+            memset(maps[i], 0, sizeof(cache[i]));
         for(int i = 0; i < h; i++)
             for(int j = 0; j < w; j++)
                 cin >> maps[i][j];
