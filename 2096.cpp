@@ -5,48 +5,27 @@
 #include <math.h>
 #include <algorithm>
 
+#define INF 987654321
+
 using namespace std;
-
-int N;
-
-int cache[100001][3];
-int board[100001][3];
-
-int maxdp(int x, int y)
-{
-    if(x < 0 || y < 0 || x >= N || y >= 3) return 0;
-    int& ret = cache[x][y];
-    if(ret != -1) return ret;
-    ret = 0;
-    return ret = max(maxdp(x + 1, y + 1) + board[x + 1][y + 1], max(maxdp(x + 1, y) + board[x + 1][y], maxdp(x + 1, y - 1) + board[x + 1][y - 1]));
-}
-
-int mindp(int x, int y)
-{
-    if(x < 0 || x >= N) return 0;
-    if(y < 0 || y >= 3) return 987654321;
-    int& ret = cache[x][y];
-    if(ret != -1) return ret;
-    ret = 0;
-    return ret = min(mindp(x + 1, y + 1) + board[x + 1][y + 1], min(mindp(x + 1, y - 1) + board[x + 1][y - 1], mindp(x + 1, y) + board[x + 1][y]));
-}
 
 int main()
 {
+    int N, a = 0, b = 0, c = 0;
+    int max1 = 0, max2 = 0, max3 = 0, min1 = 0, min2 = 0, min3 = 0;
     cin >> N;
-    for(int i = 0 ; i < N; i++)
-        for(int j = 0; j < 3; j++)
-            cin >> board[i][j];
-    int maxn = 0;
-    for(int i = 0; i < 3; i++) {
-        for(int j = 0; j < 100001; j++) memset(cache[j], -1, sizeof(cache[i]));
-        maxn = max(maxn, maxdp(0, i) + board[0][i]);
+    for(int i = 0; i < N; i++) {
+        int d, e, f;
+        scanf("%d %d %d", &d, &e, &f);
+        a = max(max1 + d, max2 + d);
+        b = max(max1 + e, max(max2 + e, max3 + e));
+        c = max(max2 + f, max3 + f);
+        max1 = a;max2 = b; max3 = c;
+        a = min(min1 + d, min2 + d);
+        b = min(min1 + e, min(min2 + e, min3 + e));
+        c = min(min2 + f, min3 + f);
+        min1 = a; min2 = b; min3 = c;
     }
-    int minn = 987654321;
-    for(int i = 0; i < 3; i++) {
-        for(int j = 0; j < 100001; j++) memset(cache[j], -1, sizeof(cache[i]));
-        minn = min(minn, mindp(0, i) + board[0][i]);
-    }
-    cout << maxn << " " << minn << endl;
+    cout << max(max1, max(max2, max3)) << ' ' << min(min1, min(min2, min3)) << endl;
     return 0;
 }
