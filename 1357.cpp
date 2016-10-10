@@ -27,6 +27,11 @@ int main()
 {
     string s1, s2;
     cin >> s1 >> s2;
-    cout << rev(addstrings(rev(s1), rev(s2))) << endl;
+    string result = rev(addstrings(rev(s1), rev(s2)));
+    bool chk = false;
+    for(int i = 0; i < result.size(); i++)
+        if(result[i] == '0' && !chk) continue;
+        else cout << result[i];
+    cout << endl;
     return 0;
 }
