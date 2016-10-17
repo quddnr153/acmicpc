@@ -8,7 +8,7 @@ using namespace std;
 int main(){
     int N;
     cin >> N;
-    for(int i = 0; i < N; i++){
+    for(int i = 0; i <= N; i++){
         string tmp;
         getline(cin, tmp);
         if(i == 0) continue;
