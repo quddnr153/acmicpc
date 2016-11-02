@@ -84,7 +84,7 @@ int main() {
 	for (int x = 0; x < n; x++) {
 		for (int y = 0; y < m; y++) {
 			const int &p = dfs(y, x);
-			if (p) arr.emplace_back(p);
+			if (p) arr.push_back(p);
 		}
 	}
 	printf("%d\n", arr.size());
