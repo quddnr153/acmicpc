@@ -52,37 +52,47 @@ N 은 언제나 2의 제곱수로 주어지며, 1≤N ≤64의 범위를 가진다.
 */
 
 #include <iostream>
-#include <cstdio>
 
-char matrix[65][65] = { 0 };
+using namespace std;
 
-void compress(int r, int c, int n) {
-	char first = matrix[r][c];
+char matrix[65][65] = {0};
 
-	for (int i = r; i < r + n; i++) {
-		for (int j = c; j < c + n; j++) {
+void compress(int x, int y, int area) {
+	char first = matrix[x][y];
+
+	for (int i = x; i < x + area; i++) {
+		for (int j = y; j < y + area; j++) {
 			if (matrix[i][j] != first) {
-				putchar('(');
-				compress(r, c, n >> 1);
-				compress(r, c + (n >> 1), n >> 1);
-				compress(r + (n >> 1), c, n >> 1);
-				compress(r + (n >> 1), c + (n >> 1), n >> 1);
-				putchar(')');
+				cout << "(";
+
+				compress(x, y, area >> 1);
+				compress(x, y + (area >> 1), area >> 1);
+				compress(x + (area >> 1), y, area >> 1);
+				compress(x + (area >> 1), y + (area >> 1), area >> 1);
+
+				cout << ")";
+
 				return;
 			}
 		}
 	}
 
-	putchar(first);
+	cout << first;
 }
 
 int main() {
 	int n;
-	scanf("%d\n", &n);
+	cin >> n;
 
-	for (int i = 0; i < n; i++) gets(matrix[i]);
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			cin >> matrix[i][j];
+		}
+	}
 
 	compress(0, 0, n);
-	printf("\n");
+
+	cout << endl;
+
 	return 0;
 }
